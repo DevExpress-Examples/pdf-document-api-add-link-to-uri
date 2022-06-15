@@ -1,5 +1,5 @@
-Imports DevExpress.Pdf
 Imports System
+Imports DevExpress.Pdf
 Imports System.Drawing
 
 Namespace AddLinkToUri
@@ -12,20 +12,20 @@ Namespace AddLinkToUri
                 processor.CreateEmptyDocument("..\..\Result.pdf")
                 ' Create and draw graphics.
                 Using graphics As PdfGraphics = processor.CreateGraphics()
-                    Using font As Font = New Font("Arial", 34)
-                        Dim blue As SolidBrush = CType(Brushes.Blue, SolidBrush)
-                        ' Calculate the link size
-                        Dim stringSize As SizeF = graphics.MeasureString("https://www.devexpress.com", font)
-                        Dim stringRect As RectangleF = New RectangleF(100, 150, stringSize.Width, stringSize.Height)
-                        ' Draw a link text. 
-                        graphics.DrawString("https://www.devexpress.com", font, blue, stringRect)
-                        ' Create a link to a URI at the specified page area.
-                        graphics.AddLinkToUri(stringRect, New Uri("https://www.devexpress.com"))
-                    End Using
-
+                    DrawGraphics(graphics)
+                    ' Create a link to URI specifying link area and URI.
+                    graphics.AddLinkToUri(New RectangleF(310, 150, 180, 15), New Uri("https://www.devexpress.com"))
                     ' Render a page with graphics.
                     processor.RenderNewPage(PdfPaperSize.Letter, graphics)
                 End Using
+            End Using
+        End Sub
+
+        Private Shared Sub DrawGraphics(ByVal graphics As PdfGraphics)
+            ' Draw a text line on the page. 
+            Using font As Font = New Font("Arial", 10)
+                Dim blue As SolidBrush = CType(Brushes.Blue, SolidBrush)
+                graphics.DrawString("https://www.devexpress.com", font, blue, 310, 150)
             End Using
         End Sub
     End Class

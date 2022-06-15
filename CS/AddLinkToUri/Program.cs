@@ -1,42 +1,36 @@
-﻿using DevExpress.Pdf;
-using System;
+﻿using System;
+using DevExpress.Pdf;
 using System.Drawing;
 
-namespace AddLinkToUri
-{
-    class Program
-    {
-        static void Main(string[] args)
-        {
+namespace AddLinkToUri {
+    class Program {
+        static void Main(string[] args) {
 
-            using (PdfDocumentProcessor processor = new PdfDocumentProcessor())
-            {
+            using (PdfDocumentProcessor processor = new PdfDocumentProcessor()) {
+
                 // Create an empty document.
                 processor.CreateEmptyDocument("..\\..\\Result.pdf");
 
                 // Create and draw graphics.
-                using (PdfGraphics graphics = processor.CreateGraphics())
-                {
-                    using (Font font = new Font("Arial", 34))
-                    {
-                        SolidBrush blue = (SolidBrush)Brushes.Blue;
+                using (PdfGraphics graphics = processor.CreateGraphics()) {
+                    DrawGraphics(graphics);
 
-                        // Calculate the link size
-                        SizeF stringSize = graphics.MeasureString("https://www.devexpress.com", font);
-                        RectangleF stringRect = new RectangleF(100, 150, stringSize.Width, stringSize.Height);
-
-                        // Draw a link text. 
-                        graphics.DrawString("https://www.devexpress.com", font, blue, stringRect);
-
-                        // Create a link to a URI at the specified page area.
-                        graphics.AddLinkToUri(stringRect, new Uri("https://www.devexpress.com"));
-                    }
+                    // Create a link to URI specifying link area and URI.
+                    graphics.AddLinkToUri(new RectangleF(310, 150, 180, 15), new Uri("https://www.devexpress.com"));
 
                     // Render a page with graphics.
                     processor.RenderNewPage(PdfPaperSize.Letter, graphics);
                 }
             }
+        }
 
+        static void DrawGraphics(PdfGraphics graphics) {
+
+            // Draw a text line on the page. 
+            using (Font font = new Font("Arial", 10)) {
+                SolidBrush blue = (SolidBrush)Brushes.Blue;
+                graphics.DrawString("https://www.devexpress.com", font, blue, 310, 150);
+            }
         }
     }
 }
