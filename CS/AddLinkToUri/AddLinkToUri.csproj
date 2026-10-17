@@ -10,6 +10,8 @@
   <ItemGroup>
 	  <PackageReference Include="DevExpress.Document.Processor" Version="26.1.5" />
 	  <PackageReference Include="DevExpress.Drawing.Skia" Version="26.1.5" />
+      <PackageReference Include="System.Security.Cryptography.Pkcs" Version="8.0.2" />
+      <PackageReference Include="System.Security.Cryptography.Xml" Version="8.0.5" />
   </ItemGroup>
 
 </Project>
